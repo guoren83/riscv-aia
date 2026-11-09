@@ -1,5 +1,8 @@
 name: Create Specification Document
 
+permissions:
+  contents: write
+
 # The workflow is triggered by pull request, push to main, and manual dispatch.
 on:
   workflow_dispatch:
