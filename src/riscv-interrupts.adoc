@@ -86,6 +86,7 @@ are non-ISA.
 |7. Interprocessor Interrupts (IPIs) |No
 |8. IOMMU Support for MSIs to Virtual Machines |No
 |9. Ssaiamrifd Extension |Yes
+|10. Ssaiasmsic Extension (draft) |Yes
 |===
 
 *Changes for version 20250312*
@@ -200,3 +201,4 @@ include::IPIs.adoc[]
 include::IOMMU.adoc[]
 //IOMMU.tex
 include::Ssaiamrifd.adoc[]
+include::Ssaiasmsic.adoc[]

@@ -29,6 +29,11 @@ to another hart, causing machine-level software at the originating hart
 to send a machine-level IPI to the destination hart, where software then
 sets the supervisor-level software interrupt-pending bit (SSIP) in CSR `mip`.
 
+The draft Ssaiasmsic extension provides a direct mechanism for the
+supervisor case. A hart writes a `send` operation to the destination
+hart's SMSIC S-file page to signal a supervisor software interrupt
+(<<Ssaiasmsic>>).
+
 When harts have IMSICs, instead of using the base Privileged Architecture's
 mechanism for signaling software interrupts at remote harts, an IPI can
 be sent to a hart by writing to the destination hart's IMSIC, the same

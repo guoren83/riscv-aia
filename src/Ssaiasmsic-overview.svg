@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="258" viewBox="0 0 850 258">
+  <title>Sending an IPI to a guest interrupt file</title>
+  <desc>Hart 1 issues an MSI write addressed to Hart 2's VS-file 3.
+    On Hart 2, vgsin selects file 3. When hgsip[3] and hgsie[3] are set,
+    the SMSIC requests VSSI. With VSSI delegated, the guest sees vsip.SSIP.</desc>
+  <rect width="850" height="258" fill="white"/>
+  <g fill="white" stroke="black" stroke-width="1.6">
+    <rect x="8" y="61" width="85" height="52"/>
+    <rect x="121" y="8" width="119" height="242" rx="22"/>
+    <rect x="277" y="12" width="406" height="234"/>
+    <rect x="709" y="32" width="133" height="202"/>
+    <rect x="290" y="42" width="115" height="28"/>
+    <rect x="290" y="79" width="115" height="28"/>
+    <rect x="290" y="116" width="115" height="28"/>
+    <rect x="290" y="153" width="115" height="28"/>
+    <rect x="290" y="207" width="115" height="28"/>
+    <path d="M447 72l48 20v126l-48 20z"/>
+  </g>
+  <path d="M271 56h19 M271 93h19 M271 130h19 M271 167h19 M271 221h19"
+        fill="none" stroke="black" stroke-width="2"/>
+  <g fill="black">
+    <circle cx="338" cy="194" r="2"/>
+    <circle cx="348" cy="194" r="2"/>
+    <circle cx="358" cy="194" r="2"/>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.4">
+    <path d="M405 93h42 M405 130h42 M405 167h42 M405 221h42"/>
+    <path d="M447 167l48-12h234 M722 150l7 5-7 5"/>
+    <path d="M471 49v32 M466 74l5 7 5-7"/>
+  </g>
+  <path d="M93 87h18l158 80 M262 156l7 11-13 1"
+        fill="none" stroke="#00b900" stroke-width="4" stroke-linejoin="round"/>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" fill="black">
+    <text x="50" y="93">Hart 1</text>
+    <text x="180" y="32">Bus network</text>
+    <text x="776" y="69">Hart 2</text>
+    <text x="292" y="33" text-anchor="start">SMSIC</text>
+    <text x="348" y="62">S-file 0</text>
+    <text x="348" y="99">VS-file 1</text>
+    <text x="348" y="136">VS-file 2</text>
+    <text x="348" y="173">VS-file 3</text>
+    <text x="348" y="227">VS-file N</text>
+    <text x="183" y="104" fill="#008800">MSI write</text>
+    <g font-family="monospace" font-size="15">
+      <text x="471" y="42">vgsin = 3</text>
+      <text x="589" y="145">hgsip[3] &amp; hgsie[3]</text>
+      <text x="780" y="160">vsip.SSIP</text>
+    </g>
+  </g>
+</svg>

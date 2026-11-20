@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="440" viewBox="0 0 1080 440">
+  <title>Outbound MSI transmission and active VS-file selection</title>
+  <desc>Hart 1 requests pend for Hart 2's VS-file 3, then send for its
+    S-file. The sending hart's outbound unit or a bus router issues both
+    as ordinary MSIs with data 1. Hart 2 sets pending state in each
+    addressed file. VS-files 1, 2, and 3 each have a pending report and
+    enable bit. With vgsin equal to 1, only file 1's enabled report
+    contributes to VSSI. File 3 can receive its MSI while inactive.</desc>
+  <rect width="1080" height="440" fill="white"/>
+  <g font-family="Helvetica, Arial, sans-serif" fill="#161616">
+    <!-- Only the outbound stage interprets the software operations. -->
+    <g fill="white" stroke="#161616" stroke-width="1.6">
+      <rect x="8" y="10" width="212" height="98"/>
+      <rect x="8" y="158" width="212" height="186" rx="16"/>
+      <rect x="296" y="10" width="776" height="420"/>
+    </g>
+    <text x="22" y="38" font-size="22" font-weight="bold">Hart 1</text>
+    <g font-size="17">
+      <text x="22" y="66">1. pend (2) to VS-file 3</text>
+      <text x="22" y="92">2. send (1) to S-file 0</text>
+    </g>
+    <path d="M99 108V157 M94 149l5 8 5 -8" fill="none" stroke="#161616" stroke-width="1.6"/>
+    <text x="110" y="138" font-size="16">MMIO writes</text>
+    <text x="22" y="186" font-size="19" font-weight="bold">Outbound stage</text>
+    <text x="22" y="209" font-size="15">Hart 1 unit or bus router</text>
+    <g font-size="17" font-weight="bold">
+      <text x="22" y="245">On pend</text>
+      <text x="22" y="295">On send</text>
+    </g>
+    <g font-size="15">
+      <text x="22" y="267">Save message and address</text>
+      <text x="22" y="317">Issue new and all deferred</text>
+    </g>
+
+    <text x="312" y="38" font-size="22" font-weight="bold">Hart 2</text>
+    <text x="389" y="38" font-size="20">SMSIC</text>
+    <path d="M296 50H1072" stroke="#161616"/>
+
+    <!-- At both receiving ports the write data is 1. -->
+    <g fill="none" stroke="#009400" stroke-width="3" stroke-linejoin="round">
+      <path d="M220 309H235V103H318 M310 98l8 5 -8 5"/>
+      <path d="M235 309V317H318 M310 312l8 5 -8 5"/>
+    </g>
+    <circle cx="235" cy="309" r="3" fill="#009400"/>
+
+    <!-- The write address chooses a file independently of vgsin. -->
+    <g fill="white" stroke="#161616" stroke-width="1.5">
+      <rect x="319" y="82" width="131" height="42"/>
+      <rect x="319" y="168" width="131" height="42"/>
+      <rect x="319" y="232" width="131" height="42"/>
+      <rect x="319" y="296" width="131" height="42"/>
+      <rect x="484" y="82" width="228" height="42"/>
+      <rect x="484" y="168" width="228" height="42"/>
+      <rect x="484" y="232" width="228" height="42"/>
+      <rect x="484" y="296" width="228" height="42"/>
+    </g>
+    <g font-size="19" font-weight="bold" text-anchor="middle">
+      <text x="384.5" y="110">S-file 0</text>
+      <text x="384.5" y="196">VS-file 1</text>
+      <text x="384.5" y="260">VS-file 2</text>
+      <text x="384.5" y="324">VS-file 3</text>
+    </g>
+    <g font-family="monospace" font-size="18" text-anchor="middle">
+      <text x="598" y="109">hgsip[0] &amp; hgsie[0]</text>
+      <text x="598" y="195">hgsip[1] &amp; hgsie[1]</text>
+      <text x="598" y="259">hgsip[2] &amp; hgsie[2]</text>
+      <text x="598" y="323">hgsip[3] &amp; hgsie[3]</text>
+    </g>
+    <g fill="none" stroke="#161616" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M450 103H483 M476 98l7 5 -7 5 M712 103H902 M895 98l7 5 -7 5"/>
+      <path d="M450 189H483 M476 184l7 5 -7 5 M712 189H753"/>
+      <path d="M450 253H483 M476 248l7 5 -7 5 M712 253H753"/>
+      <path d="M450 317H483 M476 312l7 5 -7 5 M712 317H753"/>
+    </g>
+
+    <!-- vgsin selects one enabled report for guest delivery. -->
+    <path d="M753 171L832 201V305L753 335Z" fill="white" stroke="#161616" stroke-width="1.6"/>
+    <text x="794" y="156" text-anchor="middle" font-family="monospace" font-size="17">vgsin = 1</text>
+    <g fill="none" stroke="#161616" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M793 162V185 M788 178l5 7 5 -7"/>
+      <path d="M753 189L832 253"/>
+      <path d="M832 253H902 M895 248l7 5 -7 5"/>
+    </g>
+    <g font-family="monospace" font-size="20" font-weight="bold">
+      <text x="913" y="100">sip.SSIP</text>
+      <text x="913" y="250">vsip.SSIP</text>
+    </g>
+    <g font-size="16">
+      <text x="913" y="124">SSI (S cause 1)</text>
+      <text x="913" y="274">SSI (VS cause 1)</text>
+    </g>
+
+    <path d="M319 360H1050" stroke="#999"/>
+    <g font-size="17">
+      <text x="319" y="387" font-family="monospace">sie / sip</text>
+      <text x="520" y="387">Per-file enable and pending bits. vgsin selects the VS-file.</text>
+      <text x="319" y="413" font-family="monospace">stopsi / vstopsi</text>
+      <text x="520" y="413">S-file and VS-file claim CSRs.</text>
+    </g>
+  </g>
+</svg>
