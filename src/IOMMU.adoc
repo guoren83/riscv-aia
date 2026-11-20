@@ -784,3 +784,26 @@ occur less frequently. Hence, an IOMMU might perform MRIF-mode
 processing solely as an extension of cache-miss page table walks,
 leaving its address translation cache oblivious to MRIF-mode MSI PTEs.
 ====
+
+[[Ssaiancmrifpte]]
+=== "Ssaiancmrifpte" Extension for Non-Caching of MRIF-mode PTEs (Draft)
+
+The base architecture leaves caching of MRIF-mode MSI PTEs to the
+implementation (<<IOMMU-MSIPTE-MRIF>>). Software updating such a PTE
+must therefore assume that the IOMMU may hold a cached copy.
+
+An IOMMU implementing Ssaiancmrifpte must not cache MRIF-mode PTEs from
+either the GIID page table or the MSI page tables. When updating a
+per-device MSI PTE that remains in MRIF mode, software may omit an
+`IOTINVAL.GVMA` issued solely to evict the old PTE.
+
+[NOTE]
+====
+For example, when a virtual hart moves from hart A to hart B, the
+hypervisor can keep its MRIF at the same address and update the PTE's
+notice destination to hart B. On a system that supports a single-copy
+atomic 64-bit store, the hypervisor can update NPPN and NID together
+in the PTE's second doubleword. A request that has already read the
+old PTE can still send its notice to hart A. Software must account for
+such requests before reassigning the old notice identity.
+====
